@@ -20,7 +20,7 @@ export function App() {
   );
 
   return (
-    <div className="App">
+    <div className="font-['Inter']">
       <RouterProvider router={route} />
     </div>
   );
