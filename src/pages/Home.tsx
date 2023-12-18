@@ -2,7 +2,7 @@ import Hero from "../components/Hero";
 
 function Home() {
   return (
-    <main>
+    <main className="lg:mx-24">
       <Hero />
     </main>
   );

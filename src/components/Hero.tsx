@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Hero() {
   return (
-    <section className=" h-80 lg:h-96 lg:mx-24 mt-8 relative">
+    <section className="h-80 lg:h-96  mt-8 relative">
       <img src={hero} alt="hero" className="w-full h-full  object-cover " />
       <div className="absolute top-20 left-10 lg:left-32">
         <h2 className="  text-white text-4xl uppercase font-bold bg-orange-500 p-2 lg:text-6xl">
