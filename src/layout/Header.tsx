@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 function Header() {
   return (
-    <header className="text-center py-8 sticky top-0">
+    <header className="text-center pt-8 sticky top-0">
       <Link to="/">
         <h1 className="font-['Pacifico'] text-orange-600  relative text-5xl hover:rotate-2 hover:scale-110 inline-block ">
           <span className="absolute text-2xl text-green-600 -top-3 left-6 -rotate-6">
