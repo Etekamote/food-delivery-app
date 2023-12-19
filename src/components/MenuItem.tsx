@@ -7,16 +7,16 @@ type MenuItemProps = {
 
 function MenuItem({ item }: MenuItemProps) {
   return (
-    <div className="mx-4 bg-white border-orange-500 border w-full flex  p-4 gap-2">
+    <div className="mx-4 bg-white border-orange-500 border w-full lg:w-[48%] flex justify-between  p-4 ">
       <img
         src={item.image || `https://via.placeholder.com/150`}
         alt={item.name}
-        className="h-[100px] "
+        className="h-[100px] w-[35%] "
       />
-      <section>
+      <section className="w-[60%]">
         <h3 className="text-orange-500 uppercase">{item.name}</h3>
         <p className="text-lg">{item.description}</p>
-        <div className="flex justify-between mt-4">
+        <div className="flex justify-between mt-4 w-full">
           <span>${item.price}</span>
           <button className="bg-orange-500 text-white px-4 py-2 text-lg ">
             <Link to={`/food/${item.id}`}>Order</Link>

@@ -10,7 +10,7 @@ function Menu() {
         Menu
       </h2>
       <MenuNav currentItems={currentItems} setCurrentItems={setCurrentItems} />
-      <MenuItems />
+      <MenuItems currentItems={currentItems} />
     </section>
   );
 }

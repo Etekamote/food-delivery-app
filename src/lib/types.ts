@@ -11,4 +11,5 @@ export type TFoodItem = {
   description: string;
   image: string;
   addons: TAddon[];
+  category: string;
 };

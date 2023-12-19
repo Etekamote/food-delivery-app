@@ -1,3 +1,4 @@
+import { itemsGenerator } from "../lib/itemsGenerator";
 import MenuItem from "./MenuItem";
 
 type MenuItemsProps = {
@@ -5,12 +6,14 @@ type MenuItemsProps = {
 };
 
 function MenuItems({ currentItems }: MenuItemsProps) {
+  const items = itemsGenerator(currentItems);
+
+  //fetching data from the api!!!!
   return (
     <section className="mt-8 flex flex-wrap gap-4 justify-between">
-      <MenuItem />
-      <MenuItem />
-      <MenuItem />
-      <MenuItem />
+      {items.map((item) => (
+        <MenuItem key={item.id} item={item} />
+      ))}
     </section>
   );
 }
