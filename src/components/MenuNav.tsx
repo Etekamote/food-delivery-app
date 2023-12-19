@@ -1,8 +1,11 @@
 import MenuNavItem from "./MenuNavItem";
-import { useState } from "react";
 
-function MenuNav() {
-  const [currentItems, setCurrentItems] = useState("all");
+type MenuNavProps = {
+  currentItems: string;
+  setCurrentItems: React.Dispatch<React.SetStateAction<string>>;
+};
+
+function MenuNav({ currentItems, setCurrentItems }: MenuNavProps) {
   const categories = [
     "all",
     "breakfast",
