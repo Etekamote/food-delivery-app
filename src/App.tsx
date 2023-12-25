@@ -9,12 +9,16 @@ import Home from "./pages/Home";
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
 import Hero from "./components/Hero";
+import Food from "./pages/Food";
 
 export function App() {
   const route = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Root />}>
         <Route path="/" element={<Home />} />
+        <Route path="/food" element={<Food />}>
+          <Route path=":id" element={<Food />} />
+        </Route>
         <Route path="*" element={<h1>404 Not found</h1>} />
       </Route>
     )

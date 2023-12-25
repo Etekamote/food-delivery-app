@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { TFoodItem } from "../lib/types";
 
 type MenuItemProps = {
@@ -6,8 +7,8 @@ type MenuItemProps = {
 
 function MenuItem({ item }: MenuItemProps) {
   return (
-    <a
-      href={`#${item.id}`}
+    <Link
+      to={`/food/${item.id}`}
       className="mx-4 bg-white border-orange-500 border w-full lg:w-[48%] flex justify-between  p-4 "
     >
       <img
@@ -20,7 +21,7 @@ function MenuItem({ item }: MenuItemProps) {
         <p className="text-lg">{item.description}</p>
         <div className="flex justify-between mt-4 w-full">${item.price}</div>
       </section>
-    </a>
+    </Link>
   );
 }
 
