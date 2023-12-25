@@ -8,6 +8,7 @@ import {
 import Home from "./pages/Home";
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
+import Hero from "./components/Hero";
 
 export function App() {
   const route = createBrowserRouter(
@@ -30,7 +31,10 @@ export const Root = () => {
   return (
     <>
       <Header />
-      <Outlet />
+      <Hero />
+      <main className="lg:mx-24">
+        <Outlet />
+      </main>
       <Footer />
     </>
   );

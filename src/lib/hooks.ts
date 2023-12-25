@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { menu } from "./constans";
 
 export function useActiveItem() {
   const [activeItem, setActiveItem] = useState<number | null>(null);
@@ -9,6 +10,8 @@ export function useActiveItem() {
       setActiveItem(id);
     };
 
+    handleHashChange();
+
     window.addEventListener("hashchange", handleHashChange);
 
     return () => {
@@ -17,4 +20,9 @@ export function useActiveItem() {
   }, []);
 
   return activeItem;
+}
+
+export function useItem(id: number) {
+  const item = menu.find((item) => item.id === id);
+  return item;
 }
