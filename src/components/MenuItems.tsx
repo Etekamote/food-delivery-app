@@ -1,4 +1,4 @@
-import { itemsGenerator } from "../lib/itemsGenerator";
+import { menu } from "../lib/constans";
 import MenuItem from "./MenuItem";
 
 type MenuItemsProps = {
@@ -6,7 +6,10 @@ type MenuItemsProps = {
 };
 
 function MenuItems({ currentItems }: MenuItemsProps) {
-  const items = itemsGenerator(currentItems);
+  const items = menu.filter((item) => {
+    if (currentItems === "all") return true;
+    return item.category === currentItems;
+  });
 
   //fetching data from the api!!!!
   return (
