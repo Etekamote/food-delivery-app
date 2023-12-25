@@ -1,10 +1,10 @@
 import { create } from "zustand";
-import { TFoodItem } from "../lib/types";
+import { TOrderItem } from "../lib/types";
 
 type TCartStore = {
-  cart: TFoodItem[];
-  addToCart: (item: TFoodItem) => void;
-  removeFromCart: (item: TFoodItem) => void;
+  cart: TOrderItem[];
+  addToCart: (item: TOrderItem) => void;
+  removeFromCart: (item: TOrderItem) => void;
 };
 
 export const useCartStore = create<TCartStore>((set) => ({

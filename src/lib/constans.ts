@@ -346,3 +346,31 @@ export const menu = [
     category: "dinner",
   },
 ];
+
+export const addons = [
+  {
+    id: 1,
+    name: "Addon 1",
+    price: 2.99,
+  },
+  {
+    id: 2,
+    name: "Addon 2",
+    price: 2.99,
+  },
+  {
+    id: 3,
+    name: "Addon 3",
+    price: 2.99,
+  },
+  {
+    id: 4,
+    name: "Addon 4",
+    price: 2.99,
+  },
+  {
+    id: 5,
+    name: "Addon 5",
+    price: 2.99,
+  },
+];
