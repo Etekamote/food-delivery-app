@@ -1,4 +1,4 @@
-import { menu } from "../lib/constans";
+import { useItems } from "../lib/hooks";
 import MenuItem from "./MenuItem";
 
 type MenuItemsProps = {
@@ -6,12 +6,9 @@ type MenuItemsProps = {
 };
 
 function MenuItems({ currentItems }: MenuItemsProps) {
-  const items = menu.filter((item) => {
-    if (currentItems === "all") return true;
-    return item.category === currentItems;
-  });
+  const category = currentItems === "all" ? "" : currentItems;
+  const items = useItems(category);
 
-  //fetching data from the api!!!!
   return (
     <section className="mt-8 flex flex-wrap gap-4 justify-between">
       {items.map((item) => (
