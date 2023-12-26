@@ -1,0 +1,20 @@
+import { useCartStore } from "../../stores/cartStore";
+import CartItem from "./CartItem";
+
+function CartItemsList() {
+  const cartItems = useCartStore((state) => state.cart);
+  const price = useCartStore((state) => state.cartValue);
+
+  return (
+    <>
+      <section className="w-[30%] flex flex-col gap-8">
+        {cartItems.map((item) => (
+          <CartItem key={item.cartId} item={item} />
+        ))}
+      </section>
+      <p>${price.toFixed(2)}</p>
+    </>
+  );
+}
+
+export default CartItemsList;

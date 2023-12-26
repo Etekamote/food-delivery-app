@@ -19,7 +19,9 @@ function MenuItem({ item }: MenuItemProps) {
       <section className="w-[60%]">
         <h3 className="text-orange-500 uppercase">{item.name}</h3>
         <p className="text-lg">{item.description}</p>
-        <div className="flex justify-between mt-4 w-full">${item.price}</div>
+        <div className="flex justify-between mt-4 w-full">
+          ${item.price.toFixed(2)}
+        </div>
       </section>
     </Link>
   );

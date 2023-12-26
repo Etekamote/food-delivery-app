@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAddons, useItem } from "../lib/hooks";
 import { useParams, useNavigate } from "react-router-dom";
-import { TAddon, TOrderItem } from "../lib/types";
+import { TAddon, TFoodItem } from "../lib/types";
 import { useCartStore } from "../stores/cartStore";
 
 function Food() {
@@ -14,12 +14,30 @@ function Food() {
 
   const addToCart = useCartStore((state) => state.addToCart);
 
-  const [orderItem, setOrderItem] = useState<TOrderItem>({
-    id: item?.id || 0,
-    name: item?.name || "",
-    price: item?.price || 0,
+  const [orderItem, setOrderItem] = useState<TFoodItem>({
+    id: 0,
+    name: "",
+    price: 0,
+    description: "",
+    image: "",
     addons: [],
+    category: "",
   });
+
+  useEffect(() => {
+    if (item) {
+      const newItem = {
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        description: item.description,
+        image: item.image,
+        addons: [],
+        category: item.category,
+      };
+      setOrderItem(newItem);
+    }
+  }, [item]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
@@ -42,7 +60,7 @@ function Food() {
   };
 
   if (isLoading) return <h1>Loading...</h1>;
-  if (error) return <h1>Error</h1>;
+  if (error) navigate("/");
 
   return (
     <section className="mt-8 flex flex-col items-center">
@@ -56,7 +74,7 @@ function Food() {
       </h2>
       <p className="text-xl mt-8 text-center">{item?.description}</p>
       <div className="mt-8 text-center text-3xl text-orange-500 font-bold">
-        ${item?.price}
+        ${item?.price.toFixed(2)}
       </div>
 
       {addonsList && (

@@ -12,6 +12,8 @@ import Hero from "./components/Hero";
 import Food from "./pages/Food";
 import Order from "./pages/Order";
 import Helper from "./pages/Helper";
+import { useCartStore } from "./stores/cartStore";
+import Cart from "./components/Cart/Cart";
 
 export function App() {
   const route = createBrowserRouter(
@@ -36,8 +38,10 @@ export function App() {
 }
 
 export const Root = () => {
+  const isCartOpen = useCartStore((state) => state.isCartOpen);
   return (
     <>
+      {isCartOpen && <Cart />}
       <Header />
       <Hero />
       <main className="lg:mx-24">
