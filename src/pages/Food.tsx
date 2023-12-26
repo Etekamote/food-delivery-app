@@ -9,8 +9,8 @@ function Food() {
 
   const navigate = useNavigate();
 
-  const item = useItem(id);
-  const addonsList = useAddons(item?.addons);
+  const { item, isLoading, error } = useItem(id as string);
+  const addonsList = useAddons(item?.addons || []);
 
   const addToCart = useCartStore((state) => state.addToCart);
 
@@ -20,12 +20,6 @@ function Food() {
     price: item?.price || 0,
     addons: [],
   });
-
-  useEffect(() => {
-    if (!item) {
-      navigate("/");
-    }
-  }, [id]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
@@ -46,6 +40,9 @@ function Food() {
   const handleClick = () => {
     addToCart(orderItem);
   };
+
+  if (isLoading) return <h1>Loading...</h1>;
+  if (error) return <h1>Error</h1>;
 
   return (
     <section className="mt-8 flex flex-col items-center">

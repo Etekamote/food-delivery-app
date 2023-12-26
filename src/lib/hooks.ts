@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
-import { menu } from "./constans";
-import { addons } from "./constans";
 import { TAddon, TFoodItem } from "./types";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  getDoc,
+} from "firebase/firestore";
 import { db } from "../firebase/config";
 
 export function useActiveItem() {
@@ -51,20 +56,55 @@ export function useItems(category?: string) {
   return items ?? null;
 }
 
-export function useItem(id: string | undefined) {
-  if (!id) return undefined;
-  const item = menu.find((item) => item.id === +id);
-  return item;
+export function useItem(id: string) {
+  const [item, setItem] = useState<TFoodItem | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const docRef = doc(db, "food", id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          setItem(docSnap.data() as TFoodItem);
+        } else {
+          setError("Item not found");
+        }
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setItem(null);
+        setIsLoading(false);
+        setError("Error fetching data");
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  return { item, isLoading, error };
 }
 
-export function useAddons(input: number[] | undefined) {
-  if (!input) return undefined;
+export function useAddons(input: number[]) {
+  const [addonsList, setAddonsList] = useState<TAddon[]>([]);
 
-  const addonsList = addons.map((addon: TAddon) => {
-    if (input.includes(addon.id)) {
-      return addon;
-    }
-  });
+  useEffect(() => {
+    const fetchData = async () => {
+      if (input.length === 0) return;
+      const q = query(collection(db, "addons"), where("id", "in", [...input]));
 
+      try {
+        const snapshot = await getDocs(q);
+        setAddonsList(snapshot.docs.map((doc) => doc.data()) as TAddon[]);
+      } catch (error) {
+        // Handle error, log, or set an error state
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [input]);
   return addonsList;
 }
