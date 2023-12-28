@@ -15,3 +15,14 @@ export type TAddon = {
   name: string;
   price: number;
 };
+
+export type TUser = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  address1: string;
+  address2: string;
+  city: string;
+  zipCode: string;
+};
