@@ -5,6 +5,7 @@ type TUserStore = {
   user: TUser;
   setUser: (user: TUser) => void;
   logout: () => void;
+  isUserLoggedIn: () => boolean;
 };
 
 export const useUserStore = create<TUserStore>((set, get) => ({

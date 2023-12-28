@@ -14,6 +14,7 @@ import Order from "./pages/Order";
 import Helper from "./pages/Helper";
 import { useCartStore } from "./stores/cartStore";
 import Cart from "./components/Cart/Cart";
+import SignIn from "./pages/SignIn";
 
 export function App() {
   const route = createBrowserRouter(
@@ -24,6 +25,7 @@ export function App() {
           <Route path=":id" element={<Food />} />
         </Route>
         <Route path="/order" element={<Order />} />
+        <Route path="/signin" element={<SignIn />} />
         <Route path="/helper" element={<Helper />} />
         <Route path="*" element={<h1>404 Not found</h1>} />
       </Route>
