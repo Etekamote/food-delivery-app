@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { query, collection, where, getDocs } from "firebase/firestore";
-import { db } from "../../firebase/config";
 import { useUserStore } from "../../stores/userStore";
+import { useUser } from "../../lib/hooks";
 
 function SignInComponent() {
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const { user } = useUser(formData.email, formData.password);
   const [error, setError] = useState("");
 
   const setUser = useUserStore((state) => state.setUser);
@@ -15,27 +15,11 @@ function SignInComponent() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const q = query(
-      collection(db, "usersDetails"),
-      where("email", "==", formData.email),
-      where("password", "==", formData.password)
-    );
-    const querySnapshot = await getDocs(q);
-    if (querySnapshot.empty) {
-      setError("Invalid e-mail or password, try again.");
-      return;
+    if (user) {
+      setUser(user);
+    } else {
+      setError("Invalid email or password");
     }
-    console.log(querySnapshot.docs[0].data());
-    setUser({
-      id: querySnapshot.docs[0].id,
-      name: querySnapshot.docs[0].data().name,
-      email: querySnapshot.docs[0].data().email,
-      phone: querySnapshot.docs[0].data().phone,
-      address1: querySnapshot.docs[0].data().address1,
-      address2: querySnapshot.docs[0].data().address2,
-      city: querySnapshot.docs[0].data().city,
-      zipCode: querySnapshot.docs[0].data().zipCode,
-    });
   };
 
   return (
