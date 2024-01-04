@@ -10,7 +10,6 @@ function SignIn() {
   const isLoggedIn = useUserStore((state) => state.isUserLoggedIn());
 
   useEffect(() => {
-    console.log(isLoggedIn);
     if (isLoggedIn) {
       navigate("/");
     }
