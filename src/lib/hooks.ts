@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TAddon, TFoodItem, TUser } from "./types";
+import { TAddon, TFoodItem } from "./types";
 import {
   collection,
   query,
@@ -9,27 +9,6 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { db } from "../firebase/config";
-
-export function useActiveItem() {
-  const [activeItem, setActiveItem] = useState<number | null>(null);
-
-  useEffect(() => {
-    const handleHashChange = () => {
-      const id = Number(window.location.hash.replace("#", ""));
-      setActiveItem(id);
-    };
-
-    handleHashChange();
-
-    window.addEventListener("hashchange", handleHashChange);
-
-    return () => {
-      window.removeEventListener("hashchange", handleHashChange);
-    };
-  }, []);
-
-  return activeItem;
-}
 
 export function useItems(category?: string) {
   const [items, setItems] = useState<TFoodItem[]>([]);
@@ -107,43 +86,4 @@ export function useAddons(input: number[]) {
     fetchData();
   }, [input]);
   return addonsList;
-}
-
-export function useUser(email: string, password: string) {
-  const [user, setUser] = useState<TUser | null>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const q = query(
-          collection(db, "usersDetails"),
-          where("email", "==", email),
-          where("password", "==", password)
-        );
-
-        const querySnapshot = await getDocs(q);
-        if (querySnapshot.empty) {
-          return;
-        } else {
-          setUser({
-            id: querySnapshot.docs[0].id,
-            name: querySnapshot.docs[0].data().name,
-            email: querySnapshot.docs[0].data().email,
-            address1: querySnapshot.docs[0].data().address1,
-            address2: querySnapshot.docs[0].data().address2,
-            city: querySnapshot.docs[0].data().city,
-            zipCode: querySnapshot.docs[0].data().zipCode,
-            phone: querySnapshot.docs[0].data().phone,
-          });
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setUser(null);
-      }
-    };
-
-    fetchData();
-  }, [email, password]);
-
-  return { user };
 }
