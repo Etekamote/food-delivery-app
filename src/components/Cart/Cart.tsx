@@ -3,19 +3,20 @@ import Blackout from "./Blackout";
 import { Link } from "react-router-dom";
 import { useCartStore } from "../../stores/cartStore";
 import CartItemsList from "./CartItemsList";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 function Cart() {
   useLockBodyScroll();
   const toggleCart = useCartStore((state) => state.toggleCart);
-
   const handleCloseCart = () => toggleCart();
+
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (
         e.target instanceof HTMLElement &&
-        !(e.target as HTMLElement).closest(".cart")
+        !sectionRef.current?.contains(e.target)
       ) {
         toggleCart();
       }
@@ -27,7 +28,10 @@ function Cart() {
   return (
     <>
       <Blackout />
-      <section className="absolute z-50 top-1/2 left-1/2 w-[70%] h-[90%] bg-white -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-8 overflow-y-auto cart">
+      <section
+        className="absolute z-50 top-1/2 left-1/2 w-[70%] h-[90%] bg-white -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-8 overflow-y-auto cart"
+        ref={sectionRef}
+      >
         <span
           className="absolute top-0 right-4 text-4xl text-orange-500 cursor-pointer"
           onClick={handleCloseCart}
